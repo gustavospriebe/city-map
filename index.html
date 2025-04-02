@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mapa Interativo de Locais - MVP</title>
+
+    <!-- Leaflet CSS -->
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+      crossorigin=""
+    />
+    <!-- Your Custom CSS -->
+    <link rel="stylesheet" href="style.css" />
+    <!-- Leaflet JavaScript -->
+    <script
+      src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+      integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+      crossorigin=""
+    ></script>
+  </head>
+  <body>
+    <div class="container">
+      <!-- Left Sidebar -->
+      <div class="sidebar" id="sidebar">
+        <h2>Explorador de Locais</h2>
+
+        <label for="citySelector">Selecione uma Cidade:</label>
+        <select id="citySelector">
+          <!-- Keep default value short or translate -->
+          <option value="">-- Selecione --</option>
+          <!-- Values remain, display text can be anything -->
+          <option value="Paris" data-lat="48.8566" data-lon="2.3522">
+            Paris, França
+          </option>
+          <option value="New York" data-lat="40.7128" data-lon="-74.0060">
+            Nova York, EUA
+          </option>
+          <option value="Tokyo" data-lat="35.6895" data-lon="139.6917">
+            Tóquio, Japão
+          </option>
+          <option value="London" data-lat="51.5074" data-lon="-0.1278">
+            Londres, Reino Unido
+          </option>
+          <option value="Rome" data-lat="41.9028" data-lon="12.4964">
+            Roma, Itália
+          </option>
+          <option value="Rio" data-lat="-22.9068" data-lon="-43.1729">
+            Rio de Janeiro, Brasil
+          </option>
+          <option value="Sao Paulo" data-lat="-23.5505" data-lon="-46.6333">
+            São Paulo, Brasil
+          </option>
+          <option value="Salvador" data-lat="-12.9777" data-lon="-38.5016">
+            Salvador, Brasil
+          </option>
+          <option value="Lima" data-lat="-12.0464" data-lon="-77.0428">
+            Lima, Peru
+          </option>
+          <!-- Add more cities as desired -->
+        </select>
+
+        <div id="attractionsContainer">
+          <h2 class="result-heading">Principais Atrações</h2>
+          <div
+            id="attractionsLoader"
+            class="loader"
+            style="margin-top: 15px"
+          ></div>
+          <ul id="attractionsList"></ul>
+          <p
+            id="attractionsPlaceholder"
+            style="font-style: italic; color: #555; margin-top: 10px"
+          >
+            Selecione uma cidade para ver as atrações.
+          </p>
+          <p
+            id="attractionsError"
+            style="color: red; font-size: 0.9em; margin-top: 10px"
+          ></p>
+
+          <!-- Attraction Details Section -->
+          <div
+            id="attractionDetailsContainer"
+            class="details-section"
+            style="display: none"
+          >
+            <h3>Detalhes</h3>
+            <p><strong>Nome:</strong> <span id="detailName"></span></p>
+            <p><strong>Endereço:</strong> <span id="detailAddress"></span></p>
+
+            <!-- Categories Section -->
+            <p><strong>Categorias:</strong></p>
+            <div id="detailCategoriesContainer" class="categories-container">
+              <!-- Tags in pt-BR will be inserted here -->
+            </div>
+            <!-- End Categories Section -->
+
+            <!-- Gemini Description Section -->
+            <div id="geminiDescriptionSection">
+              <p><strong>Descrição:</strong></p>
+              <div
+                id="detailDescriptionLoader"
+                class="mini-loader"
+                style="display: none"
+              ></div>
+              <!-- Placeholder text set via JS -->
+              <p id="detailDescription"></p>
+              <p
+                id="detailDescriptionError"
+                style="color: red; font-size: 0.9em; display: none"
+              ></p>
+            </div>
+            <!-- End Gemini Description Section -->
+          </div>
+          <!-- End Attraction Details Section -->
+
+          <p class="info-note">
+            <i
+              >Clique no nome da atração para ver no mapa. Dados de
+              Geoapify/OpenStreetMap.</i
+            >
+          </p>
+        </div>
+      </div>
+
+      <!-- Resizer Handle -->
+      <div class="resizer" id="resizer"></div>
+      <!-- End Resizer Handle -->
+
+      <!-- Map Area -->
+      <div class="map-container" id="map-container">
+        <div id="map"></div>
+      </div>
+    </div>
+
+    <!-- Your Custom JavaScript -->
+    <script src="script.js"></script>
+  </body>
+</html>
